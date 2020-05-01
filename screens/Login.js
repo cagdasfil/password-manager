@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, AsyncStorage, Image } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Dialog from "react-native-dialog";
 
 
 export default class Login extends React.Component{
@@ -8,7 +9,9 @@ export default class Login extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            enteredPassword:"",
+            loginPassword:"",
+            confirmationPassword:"",
+            confirmationDialogVisible: false
         }
     }
 
@@ -24,10 +27,10 @@ export default class Login extends React.Component{
         }
     };
 
-    authUser = () => {
+    authUserForLogin = () => {
         this._retrieveData("main_password").then((result)=>{
-            if(result===this.state.enteredPassword){
-                this.setState({enteredPassword:""});
+            if(result===this.state.loginPassword){
+                this.setState({loginPassword:""});
                 this.textInput.clear();
                 this.props.navigation.navigate("Home");
             }
@@ -40,8 +43,32 @@ export default class Login extends React.Component{
         });
     }
 
+    handleConfirmation = () => {
+        this._retrieveData("main_password").then((result)=>{
+            if(result===this.state.confirmationPassword){
+                this.setState({confirmationPassword:""});
+                this.textInput.clear();
+                this.props.navigation.navigate("Register");
+            }
+            else{
+                alert("Yanlış şifre girdiniz");
+            }
+        });
+    }
+
     register = () => {
-        this.props.navigation.navigate("Register");
+        this._retrieveData("main_password").then((result)=>{
+            if(result){
+                this.setState({ confirmationDialogVisible:true });
+            }
+            else{
+                this.props.navigation.navigate("Register");
+            }
+        });
+    }
+
+    handleCancel = () => {
+        this.setState({ confirmationDialogVisible: false });
     }
     
     clear = () => {
@@ -58,16 +85,17 @@ export default class Login extends React.Component{
                 <View style={{flexDirection:"row"}}>
                     <TextInput
                         style={styles.inputBox}
-                        onChangeText = {(text) => this.setState({ enteredPassword: text })}
+                        onChangeText = {(text) => this.setState({ loginPassword: text })}
                         placeholder = "şifre"
                         secureTextEntry
+                        maxLength = {16}
                         ref={input => { this.textInput = input }}
                     />
                 </View>
                 <View style={{flexDirection:"row"}}>
                     <TouchableOpacity
                         style={styles.loginButton}
-                        onPress={this.authUser}
+                        onPress={this.authUserForLogin}
                     >
                         <Text style={{fontSize:16, fontWeight:"bold", color:"#23395B"}}>Giriş Yap</Text>
                     </TouchableOpacity>
@@ -84,6 +112,19 @@ export default class Login extends React.Component{
                 >
                     <Text style={{textAlign:"center", fontWeight:"700"}}>Temizle</Text>
                 </TouchableOpacity>
+                <Dialog.Container visible={this.state.confirmationDialogVisible}>
+                    <Dialog.Description>
+                        Lütfen mevcut şifrenizi giriniz
+                    </Dialog.Description>
+                    <TextInput
+                        style={{height:40, width:200, backgroundColor:"#fff", paddingLeft:7}}
+                        onChangeText = {(text) => this.setState({ confirmationPassword: text })}
+                        placeholder = "şifre"
+                        secureTextEntry
+                    />
+                    <Dialog.Button label="Onayla" onPress={this.handleConfirmation} />
+                    <Dialog.Button label="Vazgeç" onPress={this.handleCancel} />
+                </Dialog.Container>
             </View>
         );
     }

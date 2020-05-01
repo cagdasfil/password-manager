@@ -12,9 +12,7 @@ export default class Register extends React.Component{
         this.state={
             password:"",
             re_password:"",
-            authPassword:"",
-            confirmDialogVisible: false,
-            currentPassDialogVisible: false,
+            confirmationDialogVisible: false,
             warningVisible: false,
             lengthOK: false,
             numberOK: false,
@@ -67,7 +65,7 @@ export default class Register extends React.Component{
     showDialog = () => {
         if(this.state.lengthOK && this.state.letterOK && this.state.numberOK){
             if(this.state.password===this.state.re_password){
-                this.setState({ confirmDialogVisible: true });
+                this.setState({ confirmationDialogVisible: true });
             }
             else{
                 this.setState({ warningVisible: true });
@@ -79,7 +77,7 @@ export default class Register extends React.Component{
     };
      
     handleSave = () => {
-        this.setState({ confirmDialogVisible: false });
+        this.setState({ confirmationDialogVisible: false });
         this._storeData("main_password",this.state.password);
         alert("Şifreniz başarıyla oluşturuldu");
         this.props.navigation.navigate("Login");
@@ -88,38 +86,13 @@ export default class Register extends React.Component{
     handleBack = () => {
         // The user has pressed the "Delete" button, so here you can do your own logic.
         // ...Your logic
-        this.setState({ confirmDialogVisible: false });
+        this.setState({ confirmationDialogVisible: false });
     };
-
-    handleAuth = () => {
-        this._retrieveData("main_password").then((result)=>{
-            if(result===this.state.authPassword){
-                this.setState({ currentPassDialogVisible: false });
-            }
-            else{
-                alert("Yanlış şifre girdiniz");
-            }
-        });
-    }
-
-    handleCancel = () => {
-        this.setState({ currentPassDialogVisible: false });
-        this.props.navigation.navigate("Login");
-    }
 
     register = () => {
         if(this.state.password===this.state.re_password){
             this._storeData("main_password",this.state.password);
-
         }
-    }
-
-    UNSAFE_componentWillMount(){
-        this._retrieveData("main_password").then((result)=>{
-            if(result){
-                this.setState({currentPassDialogVisible:true});
-            }
-        });
     }
 
     render(){
@@ -161,12 +134,14 @@ export default class Register extends React.Component{
                     style={styles.inputBox}
                     onChangeText = {(text) => {this.setState({ password: text, warningVisible:false }); this.validate(text);}}
                     placeholder = "şifre"
+                    maxLength = {16}
                     secureTextEntry
                 />
                 <TextInput
                     style={styles.inputBox}
                     onChangeText = {(text) => this.setState({ re_password: text, warningVisible:false })}
                     placeholder = "şifre (tekrar)"
+                    maxLength = {16}
                     secureTextEntry
                 />
                 <TouchableOpacity
@@ -175,25 +150,12 @@ export default class Register extends React.Component{
                 >
                     <Text style={{fontSize:16, fontWeight:"bold", color:"#23395B"}}>Şifreyi Kaydet</Text>
                 </TouchableOpacity>
-                <Dialog.Container visible={this.state.confirmDialogVisible}>
+                <Dialog.Container visible={this.state.confirmationDialogVisible}>
                     <Dialog.Description>
                         Şifre oluşturma işlemini onaylıyor musunuz ?
                     </Dialog.Description>
                     <Dialog.Button label="Onayla" onPress={this.handleSave} />
                     <Dialog.Button label="Vazgeç" onPress={this.handleBack} />
-                </Dialog.Container>
-                <Dialog.Container visible={this.state.currentPassDialogVisible}>
-                    <Dialog.Description>
-                        Lütfen mevcut şifrenizi giriniz
-                    </Dialog.Description>
-                    <TextInput
-                        style={{height:40, width:200, backgroundColor:"#fff", paddingLeft:7}}
-                        onChangeText = {(text) => this.setState({ authPassword: text })}
-                        placeholder = "şifre"
-                        secureTextEntry
-                    />
-                    <Dialog.Button label="Onayla" onPress={this.handleAuth} />
-                    <Dialog.Button label="Vazgeç" onPress={this.handleCancel} />
                 </Dialog.Container>
             </View>
         );
