@@ -42,20 +42,7 @@ export default class Login extends React.Component{
             }
         });
     }
-
-    handleConfirmation = () => {
-        this._retrieveData("main_password").then((result)=>{
-            if(result===this.state.confirmationPassword){
-                this.setState({confirmationPassword:""});
-                this.textInput.clear();
-                this.props.navigation.navigate("Register");
-            }
-            else{
-                alert("Yanlış şifre girdiniz");
-            }
-        });
-    }
-
+    
     register = () => {
         this._retrieveData("main_password").then((result)=>{
             if(result){
@@ -67,7 +54,21 @@ export default class Login extends React.Component{
         });
     }
 
+    handleConfirmation = () => {
+        this._retrieveData("main_password").then((result)=>{
+            if(result===this.state.confirmationPassword){
+                this.setState({confirmationPassword:"", confirmationDialogVisible:false});
+                this.textInput.clear();
+                this.props.navigation.navigate("Register");
+            }
+            else{
+                alert("Yanlış şifre girdiniz");
+            }
+        });
+    }
+
     handleCancel = () => {
+        this.setState({confirmationPassword:""});
         this.setState({ confirmationDialogVisible: false });
     }
     
