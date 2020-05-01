@@ -14,7 +14,7 @@ export default class App extends React.Component{
     return (
       <View style={styles.container}>
         <NavigationContainer>
-          <Stack.Navigator headerMode={"none"} initialRouteName="Login" >
+          <Stack.Navigator headerMode={"none"} initialRouteName="Home" >
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Register" component={Register} />
