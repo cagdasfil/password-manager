@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TextInput, TouchableOpacity, AsyncStorage } fro
 import Dialog from "react-native-dialog";
 import ColorPalette from 'react-native-color-palette';
 import ColorDialog from "./ColorDialog";
+import DialogButton from "./DialogButton";
 
 
 export default class AddCardDialog extends React.Component{
@@ -117,8 +118,8 @@ export default class AddCardDialog extends React.Component{
                         </TouchableOpacity>
                     </View>
                 </View>
-                <Dialog.Button label="Onayla" onPress={this.handleSave} />
-                <Dialog.Button label="Vazgeç" onPress={this.handleBack} />
+                <DialogButton label="Onayla" onPress={this.handleSave} />
+                <DialogButton label="Vazgeç" onPress={this.handleBack} />
                 <ColorDialog ref="cardColorDialog" chosenColor={this.state.cardColor} handleColorChoice = {this.handleCardColorChoice}/>
                 <ColorDialog ref="fontColorDialog" chosenColor={this.state.fontColor} handleColorChoice = {this.handleFontColorChoice}/>
             </Dialog.Container>

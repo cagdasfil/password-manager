@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, AsyncStorage } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Dialog from "react-native-dialog";
 import { Ionicons } from '@expo/vector-icons';
+import DialogButton from "../components/DialogButton";
 
 
 export default class Register extends React.Component{
@@ -154,8 +155,8 @@ export default class Register extends React.Component{
                     <Dialog.Description>
                         Şifre oluşturma işlemini onaylıyor musunuz ?
                     </Dialog.Description>
-                    <Dialog.Button label="Onayla" onPress={this.handleSave} />
-                    <Dialog.Button label="Vazgeç" onPress={this.handleBack} />
+                    <DialogButton label="Onayla" onPress={this.handleSave} />
+                    <DialogButton label="Vazgeç" onPress={this.handleBack} />
                 </Dialog.Container>
             </View>
         );

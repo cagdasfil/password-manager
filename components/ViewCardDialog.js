@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TextInput, TouchableOpacity, AsyncStorage } fro
 import Dialog from "react-native-dialog";
 import ColorPalette from 'react-native-color-palette';
 import ColorDialog from "./ColorDialog";
+import DialogButton from "./DialogButton";
 
 
 export default class ViewCardDialog extends React.Component{
@@ -60,7 +61,7 @@ export default class ViewCardDialog extends React.Component{
                         />
                     </View>
                 </View>
-                <Dialog.Button label="Kapat" onPress={this.handleBack} />
+                <DialogButton label="Kapat" onPress={this.handleBack} />
             </Dialog.Container>
         );
     }

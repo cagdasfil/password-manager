@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput, AsyncStorage, Image } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Dialog from "react-native-dialog";
+import DialogButton from "../components/DialogButton";
 
 
 export default class Login extends React.Component{
@@ -123,8 +124,8 @@ export default class Login extends React.Component{
                         placeholder = "şifre"
                         secureTextEntry
                     />
-                    <Dialog.Button label="Onayla" onPress={this.handleConfirmation} />
-                    <Dialog.Button label="Vazgeç" onPress={this.handleCancel} />
+                    <DialogButton label="Onayla" onPress={this.handleConfirmation} />
+                    <DialogButton label="Vazgeç" onPress={this.handleCancel} />
                 </Dialog.Container>
             </View>
         );
