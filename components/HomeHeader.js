@@ -6,7 +6,7 @@ export default class HomeHeader extends React.Component{
     render(){
         return (
             <View style={styles.container}>
-                    <Text style={styles.text}>Şifrelerim</Text>
+                <Text style={styles.text}>Şifrelerim</Text>
             </View>
         );
     }
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
         justifyContent:"flex-end"
     },
     text:{
-        color:"#FFFFFF"
+        color:"#FFFFFF",
+        fontSize:20
     }
 });
