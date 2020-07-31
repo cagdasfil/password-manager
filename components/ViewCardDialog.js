@@ -28,6 +28,10 @@ export default class ViewCardDialog extends React.Component{
         this.setState({visible:true});
     }
 
+    closeDialog = () => {
+        this.setState({visible:false});
+    }
+
     render(){
         return (
             <Dialog.Container visible={this.state.visible}>
@@ -61,6 +65,7 @@ export default class ViewCardDialog extends React.Component{
                         />
                     </View>
                 </View>
+                <DialogButton label="Sil" onPress={this.props.handleDelete} />
                 <DialogButton label="Kapat" onPress={this.handleBack} />
             </Dialog.Container>
         );

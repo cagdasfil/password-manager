@@ -40,6 +40,15 @@ export default class Home extends React.Component{
         console.log(this.state.passwords);
     }
 
+    handleDelete = (index) => {
+        let newPasswords = this.state.passwords;
+        newPasswords.splice(index, 1);
+        this.setState({passwords:newPasswords});
+        this._storeData("passwords",JSON.stringify(newPasswords));
+        console.log(index,"deleted");
+        this.refreshPasswords();
+    }
+
     refreshPasswords = () => {
         this._retrieveData("passwords").then((result)=>{
             if(result===null){
@@ -70,8 +79,11 @@ export default class Home extends React.Component{
                     <View style={{paddingVertical:10}}>
                         {this.state.passwords.map((password, index)=>{
                             return <Passwordcard 
-                                key={index} 
-                                password={password}/>
+                                key={index}
+                                index={index}
+                                password={password}
+                                handleDelete={this.handleDelete}
+                            />
                         })}
                     </View>
                 </ScrollView>

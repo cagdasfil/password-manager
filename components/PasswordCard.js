@@ -15,6 +15,11 @@ export default class PaswordCard extends React.Component{
         this.refs.viewCardDialog.openDialog();
     }
 
+    handleDelete = () => {
+        this.props.handleDelete(this.props.index);
+        this.refs.viewCardDialog.closeDialog();
+    }
+
     render(){
         return (
             <View>
@@ -49,7 +54,7 @@ export default class PaswordCard extends React.Component{
                         {this.props.password.username}
                     </Text>
                 </TouchableOpacity>
-                <ViewCardDialog ref="viewCardDialog" password={this.props.password}/>
+                <ViewCardDialog ref="viewCardDialog" password={this.props.password} handleDelete={this.handleDelete}/>
             </View>
         );
     }
