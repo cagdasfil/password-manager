@@ -10,7 +10,9 @@ export default class Home extends React.Component{
         super(props);
         this.state={
             addCardVisibility:false,
-            passwords:[]
+            passwords:[],
+            filteredPasswords:[],
+            filteringKey:""
         }
     }
 
@@ -40,22 +42,50 @@ export default class Home extends React.Component{
         console.log(this.state.passwords);
     }
 
-    handleDelete = (index) => {
+    handleDelete = (id) => {
         let newPasswords = this.state.passwords;
-        newPasswords.splice(index, 1);
+        for (let index = 0; index < newPasswords.length; index++) {
+            const element = newPasswords[index];
+            if(element.id === id){
+                newPasswords.splice(index, 1);
+                break;
+            }
+        }
         this.setState({passwords:newPasswords});
         this._storeData("passwords",JSON.stringify(newPasswords));
-        console.log(index,"deleted");
+        //console.log(index,"deleted");
         this.refreshPasswords();
+        //this.render();
+    }
+
+    filterPasswords = (key) => {
+        this.setState({filteringKey:key});
+        if(key === ""){
+          this.setState({filteredPasswords:this.state.passwords});  
+        }
+        else{
+            let filteredPasswords=[];
+            this.state.passwords.map((password, index)=>{
+                if(password.title.toLowerCase().includes(key.toLowerCase()) ||
+                    password.username.toLowerCase().includes(key.toLowerCase()) ||
+                    password.mail.toLowerCase().includes(key.toLowerCase())){
+                        filteredPasswords.push(password);
+                    }
+            });
+            this.setState({filteredPasswords:filteredPasswords});  
+        }
+        //console.log(this.state.filteredPasswords);
     }
 
     refreshPasswords = () => {
         this._retrieveData("passwords").then((result)=>{
             if(result===null){
                 this.setState({passwords:[]});
+                this.setState({filteredPasswords:[]});
             }
             else{
                 this.setState({passwords:JSON.parse(result)});
+                this.filterPasswords(this.state.filteringKey);
             }
         });
     }
@@ -64,9 +94,11 @@ export default class Home extends React.Component{
         this._retrieveData("passwords").then((result)=>{
             if(result===null){
                 this.setState({passwords:[]});
+                this.setState({filteredPasswords:[]});
             }
             else{
                 this.setState({passwords:JSON.parse(result)});
+                this.setState({filteredPasswords:JSON.parse(result)});
             }
         });
     }
@@ -74,13 +106,13 @@ export default class Home extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <HomeHeader />
+                <HomeHeader filterPasswords={this.filterPasswords} />
                 <ScrollView>
                     <View style={{paddingVertical:10}}>
-                        {this.state.passwords.map((password, index)=>{
+                        {this.state.filteredPasswords.map((password, index)=>{
                             return <Passwordcard 
                                 key={index}
-                                index={index}
+                                id={password.id}
                                 password={password}
                                 handleDelete={this.handleDelete}
                             />
