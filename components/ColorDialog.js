@@ -12,7 +12,7 @@ export default class ColorDialog extends React.Component{
         }
     }
 
-    colors = ["#1877F2", "#FF0000", "#C32AA3", "#007BB5",
+    colors = ["#4267B2", "#FF0000", "#C32AA3", "#007BB5",
                 "#FFFC00", "#006400", "#35465d", "#1ED760",
                 "#010101", "#FF4500", "#A6B1B7", "#9146FF",
                 "#FFC0CB", "#AA2200", "#00AFF0", "#FFFFFF",
