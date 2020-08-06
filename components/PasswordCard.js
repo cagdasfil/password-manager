@@ -36,16 +36,19 @@ export default class PaswordCard extends React.Component{
                     }}
                     onPress={this.handleClick.bind(this)}
                 >
-                    <Text style={{
+                    <Text 
+                        numberOfLines={1}
+                        style={{
                         flex:1,
                         fontSize:18,
                         fontWeight:"bold",
-                        flexWrap:"nowrap",
                         color:this.props.password.fontColor
                     }}>
                         {this.props.password.title}
                     </Text>
-                    <Text style={{
+                    <Text
+                        numberOfLines={1} 
+                        style={{
                         flex:1,
                         fontSize:18,
                         flexWrap:"nowrap",

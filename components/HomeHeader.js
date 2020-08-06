@@ -38,6 +38,7 @@ export default class HomeHeader extends React.Component{
                         <TextInput 
                         style={styles.inputBox}
                         onChangeText = {(text) => {this.changeSearchKey(text)}}
+                        placeholder = "Şifre ara..."
                         maxLength = {16}/>
                         <TouchableOpacity style={styles.closeIcon} onPress={this.handleClose}>
                             <Ionicons name="md-close" size={25} color="white"/>
