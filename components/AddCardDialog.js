@@ -15,8 +15,8 @@ export default class AddCardDialog extends React.Component{
             username:"",
             mail:"",
             password:"",
-            cardColor:"#1877F2",
-            fontColor:"#FF0000"
+            cardColor:"#FFFC00",
+            fontColor:"#010101"
         }
         this.handleCardColorChoice = this.handleCardColorChoice.bind(this);
         this.handleFontColorChoice = this.handleFontColorChoice.bind(this);
@@ -34,6 +34,7 @@ export default class AddCardDialog extends React.Component{
     handleSave = () => {
         let passwords = this.props.passwords;
         let newPassword = {
+            "id":Date.now().toString(),
             "title":this.state.header,
             "username":this.state.username,
             "mail":this.state.mail,
@@ -45,6 +46,7 @@ export default class AddCardDialog extends React.Component{
         this._storeData("passwords",JSON.stringify(passwords));
         this.setState({visible:false});
         this.props.refreshPasswords();
+        this.clearInputs();
     }
 
     handleCardColorChoice = (color) => {
@@ -71,6 +73,17 @@ export default class AddCardDialog extends React.Component{
         this.refs.fontColorDialog.openColor();
     }
 
+    clearInputs = () => {
+        this.setState({
+            header:"",
+            username:"",
+            mail:"",
+            password:"",
+            cardColor:"#FFFC00",
+            fontColor:"#010101"
+        });
+    }
+
     render(){
         return (
             <Dialog.Container visible={this.state.visible}>
@@ -79,6 +92,7 @@ export default class AddCardDialog extends React.Component{
                     <View style={{flexDirection:"row"}}>
                         <TextInput
                                 style={{height:40, flex:1, borderWidth:1, borderRadius:5, margin:5, backgroundColor:"#fff", paddingLeft:7}}
+                                maxLength={50}
                                 onChangeText = {(text) => this.setState({ header: text })}
                         />
                     </View>
@@ -86,6 +100,7 @@ export default class AddCardDialog extends React.Component{
                     <View style={{flexDirection:"row"}}>
                         <TextInput
                                 style={{height:40, flex:1, borderWidth:1, borderRadius:5, margin:5, backgroundColor:"#fff", paddingLeft:7}}
+                                maxLength={50}
                                 onChangeText = {(text) => this.setState({ username: text })}
                         />
                     </View>
@@ -93,6 +108,7 @@ export default class AddCardDialog extends React.Component{
                     <View style={{flexDirection:"row"}}>
                         <TextInput
                                 style={{height:40, flex:1, borderWidth:1, borderRadius:5, margin:5, backgroundColor:"#fff", paddingLeft:7}}
+                                maxLength={50}
                                 onChangeText = {(text) => this.setState({ mail: text })}
                         />
                     </View>
@@ -100,6 +116,7 @@ export default class AddCardDialog extends React.Component{
                     <View style={{flexDirection:"row"}}>
                         <TextInput
                                 style={{height:40, flex:1, borderWidth:1, borderRadius:5, margin:5, backgroundColor:"#fff", paddingLeft:7}}
+                                maxLength={50}
                                 onChangeText = {(text) => this.setState({ password: text })}
                         />
                     </View>
