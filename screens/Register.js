@@ -80,8 +80,8 @@ export default class Register extends React.Component{
     handleSave = () => {
         this.setState({ confirmationDialogVisible: false });
         this._storeData("main_password",this.state.password);
-        alert("Şifreniz başarıyla oluşturuldu");
-        this.props.navigation.navigate("Login");
+        alert("Şifreniz başarıyla oluşturuldu.");
+        this.props.navigation.goBack();
     };
      
     handleBack = () => {

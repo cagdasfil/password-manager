@@ -1,9 +1,10 @@
-import React from "react";
-import { View, Text, StyleSheet, TextInput, AsyncStorage, ScrollView, Button, TouchableOpacity } from "react-native";
+import React, {useEffect} from "react";
+import { View, Text, StyleSheet, BackHandler, AsyncStorage, ScrollView, Alert, TouchableOpacity } from "react-native";
 import Passwordcard from "../components/PasswordCard";
 import HomeHeader from "../components/HomeHeader";
 import { Ionicons } from '@expo/vector-icons';
 import AddCardDialog from "../components/AddCardDialog";
+import ExitDialog from "../components/ExitDialog";
 
 export default class Home extends React.Component{
     constructor(props){
@@ -90,6 +91,15 @@ export default class Home extends React.Component{
         });
     }
 
+    backAction = () => {
+        this.refs.exitDialog.openDialog();
+        return true;
+    };
+
+    exitHandler = () => {
+        this.props.navigation.popToTop();
+    }
+
     UNSAFE_componentWillMount(){
         this._retrieveData("passwords").then((result)=>{
             if(result===null){
@@ -101,6 +111,17 @@ export default class Home extends React.Component{
                 this.setState({filteredPasswords:JSON.parse(result)});
             }
         });
+    }
+
+    componentDidMount() {
+        this.backHandler = BackHandler.addEventListener(
+          "hardwareBackPress",
+          this.backAction
+        );
+    }
+    
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     render(){
@@ -123,6 +144,7 @@ export default class Home extends React.Component{
                     <Ionicons name="md-add" size={40} color="white"/>
                 </TouchableOpacity>
                 <AddCardDialog ref="addCardDialog" passwords={this.state.passwords} refreshPasswords={this.refreshPasswords}/>
+                <ExitDialog ref="exitDialog" exitHandler={this.exitHandler} />
             </View>
         );
     }
