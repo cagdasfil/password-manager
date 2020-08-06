@@ -1,10 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, AsyncStorage } from "react-native";
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, AsyncStorage, Alert } from "react-native";
 import Dialog from "react-native-dialog";
-import ColorPalette from 'react-native-color-palette';
 import ColorDialog from "./ColorDialog";
 import DialogButton from "./DialogButton";
-
 
 export default class AddCardDialog extends React.Component{
     constructor(props){
@@ -32,6 +30,10 @@ export default class AddCardDialog extends React.Component{
     };
 
     handleSave = () => {
+        if(this.state.header === ""){
+            Alert.alert("","Başlık boş bırakılamaz");
+            return;
+        }
         let passwords = this.props.passwords;
         let newPassword = {
             "id":Date.now().toString(),

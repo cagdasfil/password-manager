@@ -1,9 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, AsyncStorage, Image } from "react-native";
+import { View, Text, StyleSheet, TextInput, AsyncStorage, Image, Alert } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Dialog from "react-native-dialog";
 import DialogButton from "../components/DialogButton";
-
 
 export default class Login extends React.Component{
 
@@ -36,10 +35,10 @@ export default class Login extends React.Component{
                 this.props.navigation.navigate("Home");
             }
             else if(result){
-                alert("Yanlış şifre girdiniz");
+                Alert.alert("","Yanlış şifre girdiniz");
             }
             else{
-                alert("Henüz şifre oluşturulmadı");
+                Alert.alert("","Henüz şifre oluşturulmadı");
             }
         });
     }
@@ -63,7 +62,7 @@ export default class Login extends React.Component{
                 this.props.navigation.navigate("Register");
             }
             else{
-                alert("Yanlış şifre girdiniz");
+                Alert.alert("","Yanlış şifre girdiniz");
             }
         });
     }
@@ -106,7 +105,7 @@ export default class Login extends React.Component{
                     <TouchableOpacity
                         onPress={this.register}
                     >
-                        <Text style={{color: "#fff", fontWeight:"bold", fontSize:16}} >Yeni Şifre Oluştur</Text>
+                        <Text style={{color: "#fff", textDecorationLine:"underline", textAlign:"center", fontSize:14}} >Şifre oluştur veya mevcut şifreyi değiştir</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity
@@ -119,9 +118,10 @@ export default class Login extends React.Component{
                         Lütfen mevcut şifrenizi giriniz
                     </Dialog.Description>
                     <TextInput
-                        style={{height:40, width:200, backgroundColor:"#fff", paddingLeft:7}}
-                        onChangeText = {(text) => this.setState({ confirmationPassword: text })}
+                        style={styles.currentPassword}
+                        onChangeText = {(text) => {this.setState({ confirmationPassword: text});}}
                         placeholder = "şifre"
+                        maxLength = {16}
                         secureTextEntry
                     />
                     <DialogButton label="Onayla" onPress={this.handleConfirmation} />
@@ -160,5 +160,15 @@ const styles = StyleSheet.create({
     },
     newPassword:{
         marginTop:80,
+        marginHorizontal:10,
+    },
+    currentPassword:{
+        height:40,
+        marginHorizontal:10,
+        borderWidth:1,
+        borderRadius:3,
+        fontSize:18,
+        color:"#23395B",
+        textAlign:"center"
     }
 });

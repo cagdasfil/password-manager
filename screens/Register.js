@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, AsyncStorage } from "react-native";
+import { View, Text, StyleSheet, TextInput, AsyncStorage, Alert } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Dialog from "react-native-dialog";
 import { Ionicons } from '@expo/vector-icons';
@@ -73,14 +73,14 @@ export default class Register extends React.Component{
             }
         }
         else{
-            alert("Şifre belirtilen koşullara uymuyor");
+            Alert.alert("","Şifre belirtilen koşullara uymuyor");
         }
     };
      
     handleSave = () => {
         this.setState({ confirmationDialogVisible: false });
         this._storeData("main_password",this.state.password);
-        alert("Şifreniz başarıyla oluşturuldu.");
+        Alert.alert("","Şifreniz başarıyla oluşturuldu.");
         this.props.navigation.goBack();
     };
      

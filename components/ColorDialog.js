@@ -1,8 +1,7 @@
 import React from "react";
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import Dialog from "react-native-dialog";
 import ColorPalette from 'react-native-color-palette';
-
 
 export default class ColorDialog extends React.Component{
     constructor(props){

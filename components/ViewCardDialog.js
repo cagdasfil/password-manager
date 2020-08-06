@@ -1,11 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, AsyncStorage } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import Dialog from "react-native-dialog";
-import ColorPalette from 'react-native-color-palette';
-import ColorDialog from "./ColorDialog";
 import DialogButton from "./DialogButton";
 import DeletePasswordDialog from "./DeletePasswordDialog";
-
 
 export default class ViewCardDialog extends React.Component{
     constructor(props){

@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { View, Text, StyleSheet, BackHandler, AsyncStorage, ScrollView, Alert, TouchableOpacity } from "react-native";
+import React from "react";
+import { View, StyleSheet, BackHandler, AsyncStorage, ScrollView, TouchableOpacity } from "react-native";
 import Passwordcard from "../components/PasswordCard";
 import HomeHeader from "../components/HomeHeader";
 import { Ionicons } from '@expo/vector-icons';

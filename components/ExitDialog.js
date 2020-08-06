@@ -1,10 +1,6 @@
 import React from "react";
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, AsyncStorage, BackHandler } from "react-native";
 import Dialog from "react-native-dialog";
-import ColorPalette from 'react-native-color-palette';
-import ColorDialog from "./ColorDialog";
 import DialogButton from "./DialogButton";
-
 
 export default class ExitDialog extends React.Component{
     constructor(props){
