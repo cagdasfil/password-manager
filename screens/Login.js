@@ -72,10 +72,6 @@ export default class Login extends React.Component{
         this.setState({ confirmationDialogVisible: false });
     }
     
-    clear = () => {
-        AsyncStorage.clear();
-    }
-
     render(){
         return(
             <View style={styles.container}>
@@ -108,11 +104,6 @@ export default class Login extends React.Component{
                         <Text style={{color: "#fff", textDecorationLine:"underline", textAlign:"center", fontSize:14}} >Şifre oluştur veya mevcut şifreyi değiştir</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                    onPress={this.clear}
-                >
-                    <Text style={{textAlign:"center", fontWeight:"700"}}>Temizle</Text>
-                </TouchableOpacity>
                 <Dialog.Container visible={this.state.confirmationDialogVisible}>
                     <Dialog.Description>
                         Lütfen mevcut şifrenizi giriniz
