@@ -40,7 +40,7 @@ export default class Home extends React.Component{
 
     openDialog = () => {
         this.refs.addCardDialog.openDialog();
-        console.log(this.state.passwords);
+        //console.log(this.state.passwords);
     }
 
     handleDelete = (id) => {

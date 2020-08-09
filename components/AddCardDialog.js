@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TextInput, TouchableOpacity, AsyncStorage, Aler
 import Dialog from "react-native-dialog";
 import ColorDialog from "./ColorDialog";
 import DialogButton from "./DialogButton";
+import { Ionicons } from '@expo/vector-icons';
 
 export default class AddCardDialog extends React.Component{
     constructor(props){
@@ -60,7 +61,7 @@ export default class AddCardDialog extends React.Component{
     }
 
     handleBack = () => {
-        this.setState({visible:false})
+        this.setState({visible:false, password:""})
     }
 
     openDialog = () => {
@@ -85,6 +86,31 @@ export default class AddCardDialog extends React.Component{
             fontColor:"#010101"
         });
     }
+
+    generatePassword = () => {
+        let currentPassword = this.state.password;
+        let newPassword = "";
+        if(currentPassword.length < 6){
+            newPassword = this.randomStr(6);
+        }
+        else if(currentPassword.length > 20){
+            newPassword = this.randomStr(20);
+        }
+        else{
+            newPassword = this.randomStr(currentPassword.length+1);
+        }
+        this.setState({password:newPassword});
+    }
+
+    randomStr = (len) => {
+        let arr = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let pwd = ''; 
+        for (let i = len; i > 0; i--) { 
+            pwd +=  
+              arr[Math.floor(Math.random() * arr.length)]; 
+        } 
+        return pwd; 
+    } 
 
     render(){
         return (
@@ -116,11 +142,17 @@ export default class AddCardDialog extends React.Component{
                     </View>
                     <Text style={{marginLeft:5}}>Şifre</Text>
                     <View style={{flexDirection:"row"}}>
-                        <TextInput
-                                style={{height:40, flex:1, borderWidth:1, borderRadius:5, margin:5, backgroundColor:"#fff", paddingLeft:7}}
-                                maxLength={50}
-                                onChangeText = {(text) => this.setState({ password: text })}
-                        />
+                        <View style={{flexDirection:"row", flex:1, alignItems:"center"}}>
+                            <TextInput
+                                    style={{height:40, flex:1, borderWidth:1, borderRadius:5, margin:5, backgroundColor:"#fff", paddingLeft:7}}
+                                    maxLength={50}
+                                    onChangeText = {(text) => this.setState({ password: text })}
+                                    value = {this.state.password}
+                            />
+                            <TouchableOpacity style={{marginHorizontal:5}} onPress={this.generatePassword}>
+                                <Ionicons name="md-repeat" size={30} color="black"/>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <View style={{flexDirection:"row", alignSelf:"stretch", alignItems:"center", justifyContent:"center"}}>
                         <Text>Kart rengi</Text>
